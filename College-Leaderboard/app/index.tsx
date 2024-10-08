@@ -15,6 +15,10 @@ const App: React.FC = () => {
     }
   };
 
+  const challengePlayer = (index: number) => {
+    console.log("challenge" + index)
+  }
+
   // Function to remove a player from the leaderboard
   const removePlayer = (index: number) => {
     const updatedPlayers = players.filter((_, i) => i !== index);
@@ -42,12 +46,21 @@ const App: React.FC = () => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.playerRow}>
-            <Text style={styles.playerName}>{item}</Text>
-            <Button
-              title="Remove"
-              onPress={() => removePlayer(index)}
-              color="#ff0000"
-            />
+            <Text style={styles.playerName}>{index+1}: {item}</Text>
+            {/* Container for the buttons with flex row */}
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Challenge"
+                onPress={() => challengePlayer(index)}
+                color="#0000ff"
+              />
+
+              <Button
+                title="Remove"
+                onPress={() => removePlayer(index)}
+                color="#ff0000"
+              />
+            </View>
           </View>
         )}
       />
@@ -86,6 +99,13 @@ const styles = StyleSheet.create({
   playerName: {
     fontSize: 18,
   },
+  buttonContainer: {
+    flexDirection: 'row',  // Align buttons horizontally
+    justifyContent: 'space-between',
+  },
+  button: {
+    marginRight: 10,
+  }
 });
 
 // Register the component to be the root of the app
